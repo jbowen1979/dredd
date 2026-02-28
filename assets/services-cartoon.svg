@@ -1,0 +1,21 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 700'>
+<rect width='1200' height='700' fill='#0c0408'/>
+<rect x='70' y='70' width='1060' height='560' rx='30' fill='#1a0b16' stroke='#d90429' stroke-width='5'/>
+<g fill='#2f1530'>
+  <rect x='130' y='140' width='290' height='200' rx='18'/>
+  <rect x='455' y='140' width='290' height='200' rx='18'/>
+  <rect x='780' y='140' width='290' height='200' rx='18'/>
+  <rect x='130' y='370' width='290' height='200' rx='18'/>
+  <rect x='455' y='370' width='290' height='200' rx='18'/>
+  <rect x='780' y='370' width='290' height='200' rx='18'/>
+</g>
+<g fill='#b97aa0'>
+  <circle cx='220' cy='220' r='38'/><rect x='280' y='200' width='110' height='40' rx='20'/>
+  <rect x='510' y='200' width='160' height='40' rx='20'/><circle cx='690' cy='220' r='22'/>
+  <path d='M840 245 q70 -90 140 0' stroke='#b97aa0' stroke-width='20' fill='none' stroke-linecap='round'/>
+  <rect x='170' y='430' width='200' height='30' rx='15'/>
+  <rect x='500' y='430' width='190' height='30' rx='15'/>
+  <rect x='820' y='430' width='200' height='30' rx='15'/>
+</g>
+<text x='90' y='655' fill='#f6dbea' font-family='Verdana' font-size='34'>Cartoon services icons • no faces</text>
+</svg>
