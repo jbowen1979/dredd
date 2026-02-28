@@ -1,0 +1,14 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 700'>
+<rect width='1200' height='700' fill='#090307'/>
+<rect x='100' y='70' width='1000' height='560' rx='30' fill='#1f0b17' stroke='#d90429' stroke-width='6'/>
+<rect x='160' y='130' width='420' height='430' rx='20' fill='#2e1227'/>
+<rect x='200' y='180' width='340' height='42' rx='10' fill='#13060f'/>
+<rect x='200' y='245' width='340' height='42' rx='10' fill='#13060f'/>
+<rect x='200' y='310' width='340' height='42' rx='10' fill='#13060f'/>
+<rect x='200' y='375' width='340' height='90' rx='10' fill='#13060f'/>
+<rect x='640' y='170' width='390' height='70' rx='20' fill='#7b2cbf'/>
+<rect x='640' y='270' width='390' height='70' rx='20' fill='#7b2cbf'/>
+<rect x='640' y='370' width='390' height='70' rx='20' fill='#7b2cbf'/>
+<rect x='640' y='470' width='220' height='55' rx='18' fill='#d90429'/>
+<text x='130' y='655' fill='#f6dbea' font-family='Verdana' font-size='34'>Cartoon booking form preview</text>
+</svg>

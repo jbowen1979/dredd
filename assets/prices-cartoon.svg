@@ -1,0 +1,14 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 700'>
+<rect width='1200' height='700' fill='#12050b'/>
+<rect x='80' y='90' width='1040' height='520' rx='30' fill='#231022' stroke='#7b2cbf' stroke-width='6'/>
+<g transform='translate(160 170)'>
+  <rect width='260' height='360' rx='20' fill='#32122a'/><rect x='20' y='20' width='130' height='34' rx='17' fill='#d90429'/><rect x='20' y='90' width='210' height='22' rx='11' fill='#c9a4ba'/><rect x='20' y='130' width='180' height='22' rx='11' fill='#c9a4ba'/><text x='20' y='210' fill='#ffb3cb' font-size='48' font-family='Verdana'>$350</text>
+</g>
+<g transform='translate(470 170)'>
+  <rect width='260' height='360' rx='20' fill='#32122a'/><rect x='20' y='20' width='130' height='34' rx='17' fill='#d90429'/><rect x='20' y='90' width='210' height='22' rx='11' fill='#c9a4ba'/><rect x='20' y='130' width='180' height='22' rx='11' fill='#c9a4ba'/><text x='20' y='210' fill='#ffb3cb' font-size='48' font-family='Verdana'>$600</text>
+</g>
+<g transform='translate(780 170)'>
+  <rect width='260' height='360' rx='20' fill='#32122a'/><rect x='20' y='20' width='130' height='34' rx='17' fill='#d90429'/><rect x='20' y='90' width='210' height='22' rx='11' fill='#c9a4ba'/><rect x='20' y='130' width='180' height='22' rx='11' fill='#c9a4ba'/><text x='20' y='210' fill='#ffb3cb' font-size='48' font-family='Verdana'>$900</text>
+</g>
+<text x='90' y='650' fill='#f6dbea' font-family='Verdana' font-size='34'>Cartoon pricing board</text>
+</svg>

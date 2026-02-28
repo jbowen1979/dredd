@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bookings | Velvet Reign</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">Velvet Reign</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="prices.html">Prices</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="scenarios.html">Scenarios</a></li>
+          <li><a class="active" href="bookings.html">Bookings</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Booking Request</h1>
+
+    <figure class="page-image">
+      <img src="assets/bookings-cartoon.svg" alt="Fun cartoon booking form illustration (no faces or heads)" />
+      <figcaption>Fun cartoon booking form illustration.</figcaption>
+    </figure>
+    <form class="booking-form">
+      <label>Legal Name<input type="text" name="name" required /></label>
+      <label>Email<input type="email" name="email" required /></label>
+      <label>Preferred Date<input type="date" name="date" required /></label>
+      <label>Session Length
+        <select name="length" required>
+          <option value="">Select</option>
+          <option>60 minutes</option>
+          <option>120 minutes</option>
+          <option>180 minutes</option>
+        </select>
+      </label>
+      <label>Experience Level
+        <select name="experience" required>
+          <option value="">Select</option>
+          <option>First session</option>
+          <option>Intermediate</option>
+          <option>Advanced</option>
+        </select>
+      </label>
+      <label>Limits / Notes
+        <textarea name="notes" rows="5" placeholder="Share limits, allergies, and boundaries."></textarea>
+      </label>
+      <label class="checkbox"><input type="checkbox" required /> I confirm I am 18+ and consent to a negotiated session.</label>
+      <button type="submit" class="button">Submit Request</button>
+    </form>
+  </main>
+
+  <footer class="site-footer"><div class="container"><p>Requests are screened and answered within 24 hours.</p></div></footer>
+</body>
+</html>
