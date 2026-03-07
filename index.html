@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Britcit Vertical Slice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      html, body, #root { margin: 0; width: 100%; height: 100%; background: #020617; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel" data-type="module" data-presets="react">
+      import React, { useEffect, useMemo, useRef, useState } from 'https://esm.sh/react@18.3.1';
+      import { createRoot } from 'https://esm.sh/react-dom@18.3.1/client';
+      import { Canvas, useFrame } from 'https://esm.sh/@react-three/fiber@8.17.10?external=react,react-dom,three';
+      import { Html, Sky } from 'https://esm.sh/@react-three/drei@9.120.4?external=react,react-dom,three,@react-three/fiber';
+      import * as THREE from 'https://esm.sh/three@0.173.0';
+
+      const JUSTICE_DEFAULT = { Judgement: 5, Urbanism: 5, Strength: 5, Tactics: 5, Intimidation: 5, Cunning: 5, Endurance: 5 };
+      const QUESTS = [
+        { id: 'tea', title: 'Tea Crimes Unit', summary: 'A ration ring is selling illicit premium tea from a shuttered kiosk beneath the civic plaza.' },
+        { id: 'pigeons', title: 'Unlicensed Pigeons', summary: 'A resident insists the pigeons near Nelson Column are gathering state secrets.' },
+        { id: 'bins', title: 'Bin Chute Rebellion', summary: 'Tenants in Hab-Block Albion have declared independence over waste-disposal rights.' }
+      ];
+
+      function useKeys() {
+        const [keys, setKeys] = useState({});
+        useEffect(() => {
+          const down = (e) => setKeys((k) => ({ ...k, [e.key.toLowerCase()]: true }));
+          const up = (e) => setKeys((k) => ({ ...k, [e.key.toLowerCase()]: false }));
+          window.addEventListener('keydown', down);
+          window.addEventListener('keyup', up);
+          return () => { window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); };
+        }, []);
+        return keys;
+      }
+
+      const Building = ({ position, size, color, emissive }) => <mesh position={position} castShadow receiveShadow><boxGeometry args={size} /><meshStandardMaterial color={color} emissive={emissive || '#000000'} emissiveIntensity={0.25} /></mesh>;
+      const BritcitGround = () => <group><mesh rotation={[-Math.PI/2,0,0]} receiveShadow><planeGeometry args={[320,320]} /><meshStandardMaterial color="#2a2d30" /></mesh>{Array.from({length:22}).map((_,i)=><mesh key={`x-${i}`} position={[-155+i*15,0.01,0]} rotation={[-Math.PI/2,0,0]}><planeGeometry args={[6,320]} /><meshStandardMaterial color="#3a3f45" /></mesh>)}{Array.from({length:22}).map((_,i)=><mesh key={`z-${i}`} position={[0,0.011,-155+i*15]} rotation={[-Math.PI/2,0,0]}><planeGeometry args={[320,6]} /><meshStandardMaterial color="#3a3f45" /></mesh>)}<mesh position={[0,0.4,0]}><cylinderGeometry args={[18,22,0.8,32]} /><meshStandardMaterial color="#54595f"/></mesh></group>;
+      const Skybridges = () => <group><mesh position={[0,18,-28]}><boxGeometry args={[80,2,5]} /><meshStandardMaterial color="#626973" emissive="#111827" emissiveIntensity={0.35} /></mesh></group>;
+
+      function District() {
+        const towers = useMemo(() => { const items = []; const p = ['#4b5563','#5b616b','#374151','#6b7280']; for (let x=-120;x<=120;x+=24) for (let z=-120;z<=120;z+=24){ if (Math.abs(x)<28&&Math.abs(z)<28) continue; const h=10+(Math.abs(x*z)%65)/1.4; const w=8+(Math.abs(x+z)%5); const d=8+(Math.abs(x-z)%5); items.push({position:[x,h/2,z], size:[w,h,d], color:p[(Math.abs(x+z)/24)%p.length]}); } return items; }, []);
+        return <group><BritcitGround />{towers.map((b,i)=><Building key={i} {...b} />)}<Building position={[58,52,-52]} size={[24,104,24]} color="#71717a" emissive="#1e293b" /><Skybridges/></group>;
+      }
+
+      function Player({ onPositionChange }) {
+        const ref = useRef(); const keys = useKeys(); const velocity = useRef(new THREE.Vector3());
+        useFrame((state, delta) => {
+          if (!ref.current) return;
+          const speed = keys.shift ? 24 : 14;
+          const dir = new THREE.Vector3((keys.d?1:0)-(keys.a?1:0),0,(keys.s?1:0)-(keys.w?1:0));
+          if (dir.length() > 0) dir.normalize();
+          velocity.current.lerp(dir.multiplyScalar(speed), 0.12);
+          ref.current.position.x = THREE.MathUtils.clamp(ref.current.position.x + velocity.current.x * delta, -145, 145);
+          ref.current.position.z = THREE.MathUtils.clamp(ref.current.position.z + velocity.current.z * delta, -145, 145);
+          state.camera.position.lerp(new THREE.Vector3(ref.current.position.x + 18, 18, ref.current.position.z + 18), 0.06);
+          state.camera.lookAt(ref.current.position.x, 1.5, ref.current.position.z);
+          onPositionChange(ref.current.position.clone());
+        });
+        return <group ref={ref} position={[0,1.3,40]}><mesh><capsuleGeometry args={[0.75,1.8,4,8]} /><meshStandardMaterial color="#f59e0b" emissive="#7c2d12" emissiveIntensity={0.2} /></mesh></group>;
+      }
+
+      function Scene({ onPositionChange }) {
+        return <><fog attach="fog" args={['#0f172a', 40, 220]} /><ambientLight intensity={0.55} /><directionalLight castShadow intensity={1.4} position={[30,60,20]} /><Sky sunPosition={[10,3,5]} turbidity={9} rayleigh={0.4} /><District /><Player onPositionChange={onPositionChange} /></>;
+      }
+
+      function HUD({ justice, log, quest }) {
+        return <div className="pointer-events-none absolute inset-0 flex"><div className="m-4 h-fit w-[360px] rounded-3xl border border-white/10 bg-black/60 p-4 text-white shadow-2xl backdrop-blur-md"><div className="text-xs uppercase tracking-[0.35em] text-zinc-400">Britcit</div><div className="text-2xl font-bold mb-3">Justice Block</div><div className="mb-4 rounded-2xl border border-white/10 bg-white/5 p-3"><div className="text-lg font-semibold">{quest.title}</div><div className="mt-1 text-sm text-zinc-300">{quest.summary}</div></div><div className="grid grid-cols-2 gap-2">{Object.entries(justice).map(([k,v])=><div key={k} className="rounded-2xl border border-white/10 bg-white/5 p-3"><div className="text-xs text-zinc-400">{k}</div><div className="mt-1 text-xl font-bold">{v}</div></div>)}</div></div><div className="m-4 ml-auto w-[360px] rounded-3xl border border-white/10 bg-black/60 p-4 text-white shadow-2xl backdrop-blur-md"><div className="text-xs uppercase tracking-[0.25em] text-zinc-400 mb-2">Field Notes</div>{log.slice(0,5).map((entry,idx)=><div key={idx} className="rounded-2xl border border-white/10 bg-white/5 p-2 mb-2 text-sm text-zinc-200">{entry}</div>)}</div></div>;
+      }
+
+      function App() {
+        const [justice] = useState(JUSTICE_DEFAULT);
+        const [quest] = useState(QUESTS[0]);
+        const [log, setLog] = useState(['Booted into Trafalgar Grid. Smells like rain, concrete, and public resentment.','Case priority: investigate quota manipulation at the civic plaza.']);
+        const [playerPosition, setPlayerPosition] = useState(new THREE.Vector3(0,0,0));
+        useEffect(() => { const timer = setInterval(() => { const choices = ['Citizen report: suspicious pigeons circling Nelson-tier monument.','Dispatch: Hab-Block Albion requests armed mediation over bin chute jurisdiction.']; setLog((prev) => [choices[Math.floor(Math.random()*choices.length)], ...prev].slice(0,6)); }, 7000); return () => clearInterval(timer); }, []);
+        return <div className="relative h-screen w-full overflow-hidden bg-[#020617]"><Canvas shadows camera={{position:[22,20,22], fov:58}}><Scene onPositionChange={setPlayerPosition} /></Canvas><HUD justice={justice} log={log} quest={quest} /><div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-white/10 bg-black/60 px-4 py-2 text-sm text-zinc-200">Position: {playerPosition.x.toFixed(0)}, {playerPosition.z.toFixed(0)}</div></div>;
+      }
+
+      createRoot(document.getElementById('root')).render(<App />);
+    </script>
+  </body>
+</html>
