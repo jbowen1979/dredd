@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Britcit Justice Block – Vertical Slice</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="game"></canvas>
+
+    <div id="hud" class="hud">
+      <section class="panel">
+        <p class="kicker">Britcit</p>
+        <h1>Justice Block</h1>
+        <p id="quest-title" class="title"></p>
+        <p id="quest-summary" class="summary"></p>
+      </section>
+
+      <section class="panel">
+        <h2>Justice Stats</h2>
+        <div id="stats" class="stats-grid"></div>
+      </section>
+
+      <section class="panel right">
+        <h2>Field Notes</h2>
+        <div id="log" class="log"></div>
+      </section>
+
+      <section class="panel right">
+        <h2>Inventory / Evidence</h2>
+        <div id="inventory" class="inventory"></div>
+      </section>
+
+      <section class="panel right">
+        <h2>Controls</h2>
+        <p>WASD move • Shift sprint • walk into pickups</p>
+      </section>
+    </div>
+
+    <div id="position" class="position"></div>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
