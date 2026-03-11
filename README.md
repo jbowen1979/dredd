@@ -1,34 +1,30 @@
-# Oblivion GOTY Mac Installer (Steam Windows Edition)
+# Oblivion GOTY One-Click for macOS
 
-A desktop GUI that automates the usual painful setup for running **The Elder Scrolls IV: Oblivion GOTY (2009)** from your Steam library on macOS.
+This repo is set up so you can **download it and double-click one file**.
 
-## What it automates
+## Do this
 
-1. Installs prerequisites:
-   - Rosetta 2 (Apple Silicon only)
-   - Homebrew (if missing)
-   - `wine-stable`
-   - `winetricks`
-   - `steamcmd`
-2. Downloads the Windows Steam build of Oblivion GOTY (`app_id=22330`) via SteamCMD.
-3. Creates and configures a dedicated Wine prefix.
-4. Installs common Oblivion runtime dependencies (`vcrun2008`, `d3dx9`, `xact`, `corefonts`).
-5. Generates a launch script and can run the launcher directly from the app.
+1. Download/extract this folder.
+2. Double-click **`Oblivion-OneClick.command`**.
+3. Enter Steam login in the window.
+4. Click **Install + Play**.
 
-## Run
+The app will automatically:
+- install Rosetta (Apple Silicon), Homebrew, Wine, Winetricks, SteamCMD
+- download Oblivion GOTY (Steam App ID `22330`) from your account
+- configure a Wine prefix + required runtime packages
+- generate `Play-Oblivion.command` inside the game folder
+- launch Oblivion Launcher
 
-```bash
-python3 app.py
-```
+## If macOS blocks opening
 
-## Usage
-
-- Enter your Steam credentials.
-- Optional: add Steam Guard code if prompted.
-- Click buttons in order, or click **Run full setup**.
+- Right click `Oblivion-OneClick.command` -> **Open** -> **Open**.
+- Or run once in Terminal:
+  ```bash
+  xattr -d com.apple.quarantine Oblivion-OneClick.command
+  ```
 
 ## Notes
 
-- This app runs shell commands and may prompt for sudo during Homebrew/system setup.
-- Steam Guard / account security prompts can still require user interaction in some cases.
-- Tested workflow target: Apple Silicon + macOS with Wine under Rosetta.
+- First run can take a while (downloads + setup).
+- Steam Guard may still be required depending on account security.
